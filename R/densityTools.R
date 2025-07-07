@@ -1,11 +1,11 @@
 ###Function for Calculating the Density from Mass Strength and Temperature###
 #' Calculate the density from % alcohol by mass
 #'
-#' @param mass_abv Alcohol % by mass (numeric)
+#' @param mass_abm Alcohol % by mass (numeric)
 #' @param temperature Temperature in degrees C (numeric)
 #' @return a density
 #' @export
-density_from_mass_abv <- function(mass_abv, temperature) {
+density_from_mass_abm <- function(mass_abm, temperature) {
   A_comp <- 0
   A_const <- c(9.9820123e2,
                -1.929769495e2,
@@ -20,7 +20,7 @@ density_from_mass_abv <- function(mass_abv, temperature) {
                2.234460334e5,
                -3.903285426e4)
   for(ka in 2:12){
-    A_comp <- A_comp + A_const[ka] * (mass_abv/100)^(ka-1)
+    A_comp <- A_comp + A_const[ka] * (mass_abm/100)^(ka-1)
   }
   B_comp <- 0
   B_comp <- 0
@@ -74,7 +74,7 @@ density_from_mass_abv <- function(mass_abv, temperature) {
   )
   for (n in seq_along(C_const)){
     for (m in seq_along(C_const[[n]])) {
-      C_comp <- C_comp + C_const[[n]][m] * (mass_abv/100)^m * (temperature - 20)^n
+      C_comp <- C_comp + C_const[[n]][m] * (mass_abm/100)^m * (temperature - 20)^n
     }
   }
   density <- A_const[1] + A_comp + B_comp + C_comp
