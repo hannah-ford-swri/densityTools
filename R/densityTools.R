@@ -94,11 +94,11 @@ density_from_vol_abv <- function(vol_abv, temperature){
   mass_frac <- 0.5
   while((UL - LL) > 0.0000001) {
     mass_frac <- (LL + UL)/2
-    density <- density_from_mass_abv(mass_frac*100, 20)
+    density <- density_from_mass_abm(mass_frac*100, 20)
     abv_vol <- (density * mass_frac)/789.24*100
     if(abv_vol < vol_abv){LL <- mass_frac} else {UL <- mass_frac}
   }
-  density <- density_from_mass_abv(mass_frac*100, temperature)
+  density <- density_from_mass_abm(mass_frac*100, temperature)
   return(list(Density_20degrees = density,
               Mass_percent = round(mass_frac*100,2)))
 }
